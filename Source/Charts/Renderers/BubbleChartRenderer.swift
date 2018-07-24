@@ -135,6 +135,10 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
 
             context.setFillColor(color.cgColor)
             context.fillEllipse(in: rect)
+            context.setStrokeColor(UIColor.white.cgColor)
+            context.strokeEllipse(in: rect)
+            context.setLineWidth(dataSet.highlightCircleWidth)
+
 
             // Create and append the corresponding accessibility element to accessibilityOrderedElements
             if let chart = dataProvider as? BubbleChartView
@@ -310,8 +314,9 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
                 height: shapeSize)
             
             context.setLineWidth(dataSet.highlightCircleWidth)
-            context.setStrokeColor(color.cgColor)
-            context.strokeEllipse(in: rect)
+            context.setFillColor(color.cgColor)
+            context.fillEllipse(in: rect)
+
             
             high.setDraw(x: _pointBuffer.x, y: _pointBuffer.y)
         }
