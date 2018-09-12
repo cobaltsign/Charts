@@ -135,7 +135,7 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
 
             context.setFillColor(color.cgColor)
             context.fillEllipse(in: rect)
-            context.setStrokeColor(UIColor.white.cgColor)
+            context.setStrokeColor(UIColor.clear.cgColor)
             context.strokeEllipse(in: rect)
             context.setLineWidth(dataSet.highlightCircleWidth)
 
