@@ -45,7 +45,7 @@ open class YAxis: AxisBase
         case FIXED_INPUT // The label has a fixed size and is given as a property
     }
     
-    @objc open var labelWidthStyle = LabelWidthStyle.DEFAULT
+    @objc open var labelWidthStyle = LabelWidthStyle.DEFAULT.rawValue
     
     @objc open var labelWidth = CGFloat(0.0)
     
@@ -132,15 +132,18 @@ open class YAxis: AxisBase
         size.width += xOffset * 2.0
         size.height += yOffset * 2.0
         switch self.labelWidthStyle {
-        case .DEFAULT:
+        case LabelWidthStyle.DEFAULT.rawValue:
             // Do nothing
             break
-        case .FIXED_DEFAULT:
+        case LabelWidthStyle.FIXED_DEFAULT.rawValue:
             let bigLabel = "-9.999m" as NSString
             size.width = bigLabel.size(withAttributes: [NSAttributedStringKey.font: labelFont]).width + (xOffset * 2.0)
             break
-        case .FIXED_INPUT:
+        case LabelWidthStyle.FIXED_INPUT.rawValue:
             size.width = self.labelWidth
+        default:
+            // Do nothing
+            break
         }
         size.width = max(minWidth, min(size.width, maxWidth > 0.0 ? maxWidth : size.width))
         return size
