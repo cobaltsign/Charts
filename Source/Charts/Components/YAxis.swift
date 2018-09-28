@@ -38,6 +38,17 @@ open class YAxis: AxisBase
         case right
     }
     
+    @objc
+    public enum LabelWidthStyle: Int {
+        case DEFAULT //The default computed size
+        case FIXED_DEFAULT // The size is fix, and it's equal to the size of "-9.999m"
+        case FIXED_INPUT // The label has a fixed size and is given as a property
+    }
+    
+    @objc open var labelWidthStyle = LabelWidthStyle.DEFAULT
+    
+    @objc open var labelWidth = CGFloat(0.0)
+    
     /// indicates if the bottom y-label entry is drawn or not
     @objc open var drawBottomYLabelEntryEnabled = true
     
@@ -120,6 +131,17 @@ open class YAxis: AxisBase
         var size = label.size(withAttributes: [NSAttributedStringKey.font: labelFont])
         size.width += xOffset * 2.0
         size.height += yOffset * 2.0
+        switch self.labelWidthStyle {
+        case .DEFAULT:
+            // Do nothing
+            break
+        case .FIXED_DEFAULT:
+            let bigLabel = "-9.999m" as NSString
+            size.width = bigLabel.size(withAttributes: [NSAttributedStringKey.font: labelFont]).width + (xOffset * 2.0)
+            break
+        case .FIXED_INPUT:
+            size.width = self.labelWidth
+        }
         size.width = max(minWidth, min(size.width, maxWidth > 0.0 ? maxWidth : size.width))
         return size
     }
