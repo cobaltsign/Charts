@@ -72,6 +72,8 @@ open class DefaultAxisValueFormatter: NSObject, IAxisValueFormatter
         
         self.formatter = NumberFormatter()
         self.formatter?.usesGroupingSeparator = true
+        self.formatter?.numberStyle = .decimal;
+        self.formatter?.locale = Locale.init(identifier: "en-ch");
         self.decimals = decimals
         hasAutoDecimals = true
     }
